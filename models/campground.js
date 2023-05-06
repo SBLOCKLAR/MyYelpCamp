@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
-const { campgroundSchema } = require("../schemas");
+// const { campgroundSchema } = require("../schemas");
 const Review = require("./review");
 const Schema = mongoose.Schema;
 
-const CampGroundSchema = new Schema({
+const CampgroundSchema = new Schema({
   title: String,
   image: String,
   price: Number,
@@ -27,4 +27,4 @@ CampgroundSchema.post("findOneAndDelete", async function (doc) {
   }
 });
 
-module.exports = mongoose.model("Campground", CampGroundSchema);
+module.exports = mongoose.model("Campground", CampgroundSchema);
