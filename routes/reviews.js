@@ -4,12 +4,9 @@ const router = express.Router({ mergeParams: true });
 const Campground = require("../models/campground");
 const Review = require("../models/review");
 
-const { reviewSchema } = require("../schemas.js");
-const { isLoggedIn } = require("../middleware");
-const { validateReview } = require("../middleware");
+const { isLoggedIn, validateReview } = require("../middleware");
 
 const catchAsync = require("../utils/catchAsync");
-const ExpressError = require("../utils/ExpressError");
 
 router.post(
   "/",
