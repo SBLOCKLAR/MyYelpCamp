@@ -27,11 +27,20 @@ const dbUrl = process.env.DB_URL || "mongodb://localhost:27017/yelp-camp";
 mongoose.set("strictQuery", true);
 mongoose.connect(dbUrl);
 
-const db = mongoose.connection;
-db.on("error", console.error.bind(console, "connection error:"));
-db.once("open", () => {
-  console.log("Database connected");
-});
+// const db = mongoose.connection;
+// db.on("error", console.error.bind(console, "connection error:"));
+// db.once("open", () => {
+//   console.log("Database connected");
+// });
+const connectDB = async () => {
+  try {
+    const conn = await mongoose.connect(process.env.DB_URL);
+    console.log(`MongoDB Connected: ${conn.connection.host}`);
+  } catch (error) {
+    console.log(error);
+    process.exit(1);
+  }
+};
 
 const app = express();
 
@@ -154,6 +163,11 @@ app.use((err, req, res, next) => {
 });
 
 const port = process.env.PORT || 3000;
-app.listen(port, () => {
-  console.log(`Serving on port ${port}`);
+// app.listen(port, () => {
+//   console.log(`Serving on port ${port}`);
+// });
+connectDB().then(() => {
+  app.listen(port, () => {
+    console.log(`listening on ${port}`);
+  });
 });
